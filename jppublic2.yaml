@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jppublic-prod-deployment
+  labels:
+    app: jppublic
+    version: v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jppublic
+      version: v2
+  template:
+    metadata:
+      labels: # labels to select/identify the deployment
+        app: jppublic 
+        version: v2 
+  template:
+    metadata:
+      labels: # labels to select/identify the deployment
+        app: jppublic  
+        version: v2
+#       annotations: 
+#         date: "+%H:%M:%S %d/%m/%y"
+    spec:     # pod spec
+      imagePullSecrets:
+      - name: jfrog-secret
+      containers: 
+      - name: jppublic
+        image: sreyo.jfrog.io/jppublic-docker-prod-local/application-docker:latest # image we pushed
+        
+        #imagePullPolicy: Never
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80    
